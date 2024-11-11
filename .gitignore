@@ -9,7 +9,7 @@ $RECYCLE.BIN/
 **/*.logs
 **/logs
 *.cab
-#*.cfg
+*.cfg
 *.cover
 *.egg
 *.egg-info/
@@ -95,7 +95,6 @@ eggs/
 ehthumbs.db
 ehthumbs_vista.db
 env.bak/
-env/
 htmlcov/
 instance/
 ipython_config.py
