@@ -1,7 +1,7 @@
 version: '3.8'
 
 services:
-  auth_service:
+  authservice:
     build: .
     volumes:
       - .:/usr/src/app
@@ -11,8 +11,10 @@ services:
       - .env
     depends_on:
       - authdb
-      - redis
+      - authredis
     restart: unless-stopped
+    networks:
+      - code_challenge
 
   authdb:
     image: docker.arvancloud.ir/postgres:13-alpine
@@ -25,21 +27,25 @@ services:
     ports:
       - "5432:5432"
     restart: unless-stopped
+    networks:
+      - code_challenge
 
-  redis:
+  authredis:
     image: docker.arvancloud.ir/redis:6-alpine
     command: redis-server --appendonly yes --requirepass ${REDIS_PASSWORD}
     volumes:
-      - redis_data:/data
+      - auth_redis_data:/data
     environment:
       - REDIS_PASSWORD=${REDIS_PASSWORD}
     ports:
       - "6379:6379"
     restart: unless-stopped
+    networks:
+      - code_challenge
 
 volumes:
   postgres_data:
-  redis_data:
+  auth_redis_data:
 
 networks:
   code_challenge:

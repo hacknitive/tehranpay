@@ -10,7 +10,7 @@ done
 echo "PostgreSQL is up and running!"
 
 echo "Waiting for Redis..."
-while ! nc -z redis 6379; do
+while ! nc -z authredis 6379; do
   sleep 1
 done
 echo "Redis is up and running!"
